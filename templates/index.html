@@ -8,6 +8,8 @@
     <title>Data Summarization</title>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link href="/static/css/jquery-ui.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/styles.css">
+    
 </head>
 
 <body>
@@ -26,26 +28,8 @@
                     name="data" id="data" cols="30" rows="10" placeholder="Enter your Data"
                     required="required"></textarea>
                 <div style="text-align: center;">
-                    <div >
-                        <input type="checkbox" id="choice1" name="choice1" value="email">
-                        <label for="choice1">Select all Emails</label><br>
-                    </div>
-                    <div >
-                        <input type="checkbox" id="choice2" name="choice2" value="url">
-                        <label for="choice1">Select all URLs</label><br>
-                    </div>
-                    <div >
-                        <input type="checkbox" id="choice3" name="choice3" value="phNos">
-                        <label for="choice1">Select all Phone numbers</label><br>
-                    </div>
-                    <div >
-                        <input type="checkbox" id="choice4" name="choice4" value="Dates">
-                        <label for="choice2">Select all Dates</label><br>
-                    </div>
-                    <div >
-                        <input type="checkbox" id="choice5" name="choice5" value="summarize">
-                        <label for="choice1">Summarize</label>
-                    </div>
+                    
+                   
                     <div >
                         <h3>Summary Length</h3>
                         <input type="range" class="m-2" min="20" max="1000" name="maxL">
@@ -74,35 +58,65 @@
             </div>
         </div>
     </section>
-    <script>
-        function show_value2(x)
-        {
-        document.getElementById("slider_value2").innerHTML=x;
-        }
-        function myFunction() {
-            /* Get the text field */
-            var copyText = document.getElementById("myInput");
+    <div class="matching-section">
+        <div class="matching-column">
+            <div class="matching-row">
+                <div class="matching-title">Matched Emails:</div>
+                <div class="matching-data">
+                    {% if emails %}
+                        {% for email in emails %}
+                            {{ email }}<br>
+                        {% endfor %}
+                    {% else %}
+                        No matching emails found.
+                    {% endif %}
+                </div>
+            </div>
 
-            /* Select the text field */
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+            <div class="matching-row">
+                <div class="matching-title">Matched Phone Numbers:</div>
+                <div class="matching-data">
+                    {% if phones %}
+                        {% for phone in phones %}
+                            {{ phone }}<br>
+                        {% endfor %}
+                    {% else %}
+                        No matching phone numbers found.
+                    {% endif %}
+                </div>
+            </div>
+        </div>
 
-            /* Copy the text inside the text field */
-            navigator.clipboard.writeText(copyText.value);
-        }
-    </script>
-    <script>
-        function Check() {
+        <div class="matching-column">
+            <div class="matching-row">
+                <div class="matching-title">Matched URLs:</div>
+                <div class="matching-data">
+                    {% if urls %}
+                        {% for url in urls %}
+                            {{ url }}<br>
+                        {% endfor %}
+                    {% else %}
+                        No matching URLs found.
+                    {% endif %}
+                </div>
+            </div>
 
-            var reg = /<(.|\n)*>/g;
-
-            if (reg.test(document.getElementById("data").value) == true) {
-                var ErrorText = 'Make Sure You Provide Valid Data.';
-                alert('Error Text');
-
-            }
-        }
-    </script>
+            <div class="matching-row">
+                <div class="matching-title">Matched Dates:</div>
+                <div class="matching-data">
+                    {% if dates %}
+                        {% for date in dates %}
+                            {{ date }}<br>
+                        {% endfor %}
+                    {% else %}
+                        No matching dates found.
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script> 
+    
 </body>
 
 </html>
